@@ -24,18 +24,18 @@ export class Watcher {
   /**
    * Observa un archivo y hace ls -l -h
    */
-  public run() {
+  public run(): void {
     if (existsSync(this.file)) {
-      const watcher = watch(this.file, (event, filename) => {
-        if (event == 'rename') {
+      const watcher = watch(this.file, (eventType, filename) => {
+        if (eventType == 'rename') {
           console.log('El fichero se ha eliminado o renombrado');
           watcher.close();
         } else {
-          const argumentArray: string[] = this.arguments.concat(filename);
-          const ls = spawn(this.command, argumentArray);
+          const array: string[] = this.arguments.concat(filename);
+          const ls = spawn(this.command, array);
           ls.stdout.pipe(process.stdout);
-          let lsOutput = '';
-          ls.stdout.on('data', (piece) => lsOutput += piece);
+          let output = '';
+          ls.stdout.on('data', (piece) => output += piece);
         }
       });
       watcher.on('error', () => {
