@@ -11,5 +11,8 @@ export abstract class MethodTemplate {
     this.file = file;
   }
 
+  /**
+   * @abstract Realiza el comando cat y grep
+   */
   protected abstract catGrepCommand(): void;
 }
