@@ -49,7 +49,7 @@ export class Watcher {
   }
 }
 
-/* Menú principal
+// Menú principal
 const watcher = new Watcher(process.argv);
 watcher.run();
-*/
+
