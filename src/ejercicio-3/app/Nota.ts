@@ -1,4 +1,4 @@
-import { Color } from './Color';
+import {Color} from './Color';
 
 /**
  * @class Representa una nota.

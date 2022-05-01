@@ -1,22 +1,34 @@
 import * as fs from 'fs';
 import chalk from 'chalk';
+import {EventEmitter} from 'events';
 
-export class Watcher {
+/**
+ * Clase que visualiza los cambios en las notas de un usuario.
+ */
+export class Watcher extends EventEmitter {
+  /**
+   * Inicializa un objeto.
+   * @param user Usuario a observar
+   */
   constructor(private readonly user: string) {
-    // Este constructor solo inicializa el objeto
+    super();
   }
 
-  public watch(): void {
-    fs.access(`./data/${this.user}/`, fs.constants.F_OK, (err) => {
-      if (err) {
-        console.log(chalk.red(`El usario ${this.user} no existe`));
+  /**
+   * Método que se encarga de hacer la visualiación de los cambios.
+   * @returns {fs.FSWatcher} Emisor de eventos simple
+   */
+  public watch(): fs.FSWatcher {
+    console.log(chalk.blue(`Vigilando las notas de ${this.user}:`));
+    const watcher = fs.watch(`./data/${this.user}/`, (eventType, filename) => {
+      if (eventType == 'rename') {
+        this.emit('rename', `La nota ${filename} se ha eliminado`);
+      } else if (eventType == 'change') {
+        this.emit('change', `La nota ${filename} se ha modificado`);
       } else {
-        console.log(chalk.blue(`Vigilando las notas de ${this.user}:`));
-        fs.watch(`./data/${this.user}/`, (eventType, filename) => {
-          console.log(chalk.green(`\nEl fichero ${filename} ha cambiado!`));
-          console.log(chalk.green(`El cambio fue de tipo: ${eventType}`));
-        });
+        this.emit('error', `Ha ocurrido un error`);
       }
     });
-  };
+    return watcher;
+  }
 }

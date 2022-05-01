@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import chalk from 'chalk';
-import { Nota } from './Nota';
-import { Color } from './Color';
+import {Nota} from './Nota';
+import {Color} from './Color';
 
 const NOEXISTNOTA: string = chalk.red('No existe una nota con ese título');
 
@@ -23,9 +23,10 @@ export class AppNotas {
    * @param cuerpo Cuerpo de la nota
    * @param color Color del texto de la nota
    */
-  public addNota(usuario: string, titulo: string, cuerpo: string, color: Color): string {
+  public addNota(usuario: string, titulo: string,
+      cuerpo: string, color: Color): string {
     if (!fs.existsSync(`data/${usuario}`)) {
-      fs.mkdirSync(`data/${usuario}`, { recursive: true});
+      fs.mkdirSync(`data/${usuario}`, {recursive: true});
     }
     const nota = new Nota(titulo, cuerpo, color);
     if (!fs.existsSync(`data/${usuario}/${titulo}.json`)) {
@@ -45,7 +46,8 @@ export class AppNotas {
    * @param cuerpo Cuerpo de la nota
    * @param color Color del texto de la nota
    */
-  public modifyNota(usuario: string, titulo: string, cuerpo: string, color: Color): string {
+  public modifyNota(usuario: string, titulo: string,
+      cuerpo: string, color: Color): string {
     if (fs.existsSync(`data/${usuario}/${titulo}.json`)) {
       const nota = new Nota(titulo, cuerpo, color);
       fs.writeFileSync(`data/${usuario}/${titulo}.json`, nota.write());
@@ -90,7 +92,8 @@ export class AppNotas {
       allTitulo.forEach((titulo) => {
         const data = fs.readFileSync(`data/${usuario}/${titulo}`);
         const notaObject = JSON.parse(data.toString());
-        const nota: Nota = new Nota(notaObject.titulo, notaObject.cuerpo, notaObject.color);
+        const nota: Nota = new Nota(notaObject.titulo,
+            notaObject.cuerpo, notaObject.color);
         switch (nota.getColor()) {
           case 'azul':
             result.push(chalk.blue(nota.getTitulo()));
@@ -120,7 +123,8 @@ export class AppNotas {
     if (fs.existsSync(`data/${usuario}/${titulo}.json`)) {
       const data = fs.readFileSync(`data/${usuario}/${titulo}.json`);
       const notaObject = JSON.parse(data.toString());
-      const nota: Nota = new Nota(notaObject.titulo, notaObject.cuerpo, notaObject.color);
+      const nota: Nota = new Nota(notaObject.titulo,
+          notaObject.cuerpo, notaObject.color);
       switch (nota.getColor()) {
         case 'azul':
           console.log(chalk.blue(nota.getTitulo(), '\n', nota.getCuerpo()));

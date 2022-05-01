@@ -16,8 +16,6 @@
   ],
   "rules": {
       "require-jsdoc": "off",
-      "valid-jsdoc": "off",
-      "max-len": "off",
-      "object-curly-spacing": "off"
+      "valid-jsdoc": "off"
   }
 }

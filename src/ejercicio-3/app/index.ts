@@ -1,5 +1,5 @@
 import * as yargs from 'yargs';
-import { AppNotas } from './AppNotas';
+import {AppNotas} from './AppNotas';
 
 const app = new AppNotas();
 
@@ -31,7 +31,8 @@ yargs.command({
   handler(argv) {
     if (typeof argv.usuario === 'string' && typeof argv.titulo === 'string' &&
         typeof argv.cuerpo === 'string' && typeof argv.color === 'string' &&
-        ((argv.color === 'azul') || (argv.color === 'rojo') || (argv.color === 'verde') || (argv.color === 'amarillo'))) {
+        ((argv.color === 'azul') || (argv.color === 'rojo') || (
+          argv.color === 'verde') || (argv.color === 'amarillo'))) {
       app.addNota(argv.usuario, argv.titulo, argv.cuerpo, argv.color);
     }
   },
@@ -65,7 +66,8 @@ yargs.command({
   handler(argv) {
     if (typeof argv.usuario === 'string' && typeof argv.titulo === 'string' &&
         typeof argv.cuerpo === 'string' && typeof argv.color === 'string' &&
-        ((argv.color === 'azul') || (argv.color === 'rojo') || (argv.color === 'verde') || (argv.color === 'amarillo'))) {
+        ((argv.color === 'azul') || (argv.color === 'rojo') ||
+        (argv.color === 'verde') || (argv.color === 'amarillo'))) {
       app.modifyNota(argv.usuario, argv.titulo, argv.cuerpo, argv.color);
     }
   },

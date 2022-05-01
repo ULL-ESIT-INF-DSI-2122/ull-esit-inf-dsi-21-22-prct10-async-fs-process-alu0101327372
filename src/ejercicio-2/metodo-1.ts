@@ -1,14 +1,26 @@
-import { MethodTemplate } from './MethodTemplate';
-import { spawn } from 'child_process';
+import {MethodTemplate} from './MethodTemplate';
+import {spawn} from 'child_process';
 import chalk from 'chalk';
 
+/**
+ * @class Clase que implementa el comando usando pipe.
+ * @extends MethodTemplate
+ */
 export class WithPipeMethod extends MethodTemplate {
+  /**
+   * Inicializa el objeto.
+   * @param file Ruta del fichero
+   * @param word Palabra a buscar
+   */
   constructor(protected file: string, private word: string) {
     super(file);
     this.word = word;
   }
 
-  public catGrepCommand() {
+  /**
+   * Realiza el comando cat y grep usando pipe.
+   */
+  public catGrepCommand(): void {
     const grep = spawn('grep', [this.word]);
     spawn('cat', [this.file]).stdout.pipe(grep.stdin);
 
@@ -28,14 +40,14 @@ export class WithPipeMethod extends MethodTemplate {
       });
 
       if (matches === 0) {
-        console.log(chalk.red(`No matches found for ${this.word}`));
+        this.emit('close', chalk.red(`No matches found for ${this.word}`));
       } else {
-        console.log(chalk.green(`Total matches: ${matches}`));
+        this.emit('close', chalk.green(`Total matches: ${matches}`));
       }
     });
 
     grep.on('error', () => {
-      console.log(chalk.red('An error has occur'));
+      this.emit('error', chalk.red('An error has occur'));
     });
   }
 }

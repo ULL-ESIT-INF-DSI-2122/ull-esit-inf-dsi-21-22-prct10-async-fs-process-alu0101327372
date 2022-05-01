@@ -1,6 +1,18 @@
 {
   "entryPoints": [
-    "./src/modificacion/index.ts"
+    "./src/modificacion/index.ts",
+    "./src/ejercicio-2/index.ts",
+    "./src/ejercicio-2/MethodTemplate.ts",
+    "./src/ejercicio-2/metodo-1.ts",
+    "./src/ejercicio-2/metodo-2.ts",
+    "./src/ejercicio-3/app/index.ts",
+    "./src/ejercicio-3/app/AppNotas.ts",
+    "./src/ejercicio-3/app/Color.ts",
+    "./src/ejercicio-3/app/Nota.ts",
+    "./src/ejercicio-3/index.ts",
+    "./src/ejercicio-3/Watcher.ts",
+    "./src/ejercicio-4/index.ts",
+    "./src/ejercicio-4/Wrapper.ts"
   ],
   "out": "./doc"
 }

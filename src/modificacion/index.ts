@@ -1,8 +1,9 @@
-import { watch, existsSync } from 'fs';
-import { spawn } from 'child_process';
+import {watch, existsSync} from 'fs';
+import {spawn} from 'child_process';
 
 /**
- * @class Clase que observa un archivo y realiza los comandos pasado por argumentos
+ * @class Clase que observa un archivo y
+ * realiza los comandos pasado por argumentos
  */
 export class Watcher {
   private command: string;
@@ -48,6 +49,7 @@ export class Watcher {
   }
 }
 
-// Menú principal
+/* Menú principal
 const watcher = new Watcher(process.argv);
 watcher.run();
+*/

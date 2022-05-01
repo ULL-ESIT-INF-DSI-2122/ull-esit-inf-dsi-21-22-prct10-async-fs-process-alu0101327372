@@ -1,4 +1,4 @@
-import { Watcher } from './Watcher';
+import {Watcher} from './Watcher';
 
 if (process.argv[2] === undefined) {
   console.log('Diga un usuario');

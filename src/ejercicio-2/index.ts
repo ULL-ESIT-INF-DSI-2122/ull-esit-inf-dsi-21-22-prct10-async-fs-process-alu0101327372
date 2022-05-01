@@ -1,12 +1,12 @@
 import * as fs from 'fs';
 import chalk from 'chalk';
-import { WithPipeMethod } from './metodo-1';
-import { WithoutPipeMethod } from './metodo-2.ts';
+import {WithPipeMethod} from './metodo-1';
+import {WithoutPipeMethod} from './metodo-2';
 import yargs from 'yargs';
 
 yargs.command({
   command: 'command',
-  describe: 'Este comando cuenta el número de coincidencias de una cadena específica en un archivo específico',
+  describe: 'CatG + Grep',
   builder: {
     file: {
       describe: 'Filename',
@@ -39,7 +39,7 @@ yargs.command({
           console.log(chalk.red('Option not supported'));
         }
       } else {
-        console.log(chalk.red('The file that is triying to use does not exist'));
+        console.log(chalk.red('EEl fichero no existe'));
       }
     }
   },
