@@ -5,7 +5,7 @@ import {Wrapper} from '../src/ejercicio-4/Wrapper';
 
 describe('Pruebas clase Wrapper', () => {
   it('cat()', (done) => {
-    const wrapper: Wrapper = new Wrapper('tests/prueba.txt');
+    const wrapper: Wrapper = new Wrapper('prueba.txt');
     wrapper.on('data', (message) => {
       expect(message.toString()).to.be.equal(chalk.green('Hola Mundo'));
       done();
@@ -54,10 +54,10 @@ describe('Pruebas clase Wrapper', () => {
   });
 
   it('isFileOrDirectory()', (done) => {
-    const wrapper: Wrapper = new Wrapper('tests/prueba.txt');
+    const wrapper: Wrapper = new Wrapper('prueba.txt');
     wrapper.on('data', (message) => {
       // eslint-disable-next-line max-len
-      expect(message.toString()).to.be.equal(chalk.green(`tests/prueba.txt es un fichero`));
+      expect(message.toString()).to.be.equal(chalk.green(`prueba.txt es un fichero`));
       done();
     });
     wrapper.isFileOrDirectory();
