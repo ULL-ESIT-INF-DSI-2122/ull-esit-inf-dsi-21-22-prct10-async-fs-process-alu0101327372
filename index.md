@@ -23,6 +23,104 @@ En esta práctica se han resuelto una serie de ejercicios haciendo uso de las AP
 └── typedoc.json
 ```
 
+# Ejercicio 1
+
+Se ha realizado una traza de ejecución mostrando, paso a paso, el contenido de la pila de llamadas, el registro de eventos de la API y la cola de manejadores, además de lo que se muestra por la consola.
+
+```typescript
+import {access, constants, watch} from 'fs';
+
+if (process.argv.length !== 3) {
+  console.log('Please, specify a file');
+} else {
+  const filename = process.argv[2];
+
+  access(filename, constants.F_OK, (err) => {
+    if (err) {
+      console.log(`File ${filename} does not exist`);
+    } else {
+      console.log(`Starting to watch file ${filename}`);
+
+      const watcher = watch(process.argv[2]);
+
+      watcher.on('change', () => {
+        console.log(`File ${filename} has been modified somehow`);
+      });
+
+      console.log(`File ${filename} is no longer watched`);
+    }
+  });
+}
+```
+
+Si el nombre de fichero es válido, se continuará con la ejecución del programa colocando el metodo access en la pila de llamadas.
+
+- Pila de llamadas: err => {} || access()
+- Registro de eventos: -
+- Cola: -
+- Consola: -
+
+Luego, se añade en el registro de eventos ya que es un método asíncrono.
+
+- Pila de llamadas: -
+- Registro de eventos: err => {}
+- Cola: -
+- Consola: -
+
+El método `access()`se usa para probar los permisos de un archivo o directorio determinado. Los posibles permisos son los siguientes:
+
+- R_OK: checkea el permiso de lectura.
+- W_OK: checkea el permiso de escritura.
+- F_OK: checkea si el fichero existe
+- X_OK: checkea el permiso de ejecución.
+
+Cuando se ejecute tendremos los siguiente:
+
+- Pila de llamadas: -
+- Registro de eventos: -
+- Cola: err => {}
+- Consola: -
+
+Ahora, se introducen y ejecutan los procesos de la cola en la pila de llamadas. Pueden pasar dos cosas:
+
+1. Ocurre un error. En este caso:
+
+- Pila de llamadas: err => {.....}
+- Registro de eventos: -
+- Cola: -
+- Consola: File ${filename} does not exist
+
+2. Se ejecuta correctamente, sin errores.
+
+- Pila de llamadas: err => {.....}
+- Registro de eventos: -
+- Cola: -
+- Consola: Starting to watch file ${filename}
+
+A continuacion, se crea el watcher y este comienza a detectar los cambios.
+
+- Pila de llamadas: watcher.on('change', () => {} || err => {.....}
+- Registro de eventos: -
+- Cola: -
+- Consola: -
+
+Se queda esperando pero cuando se produzca un cambio. El siguiente proceso se repite cada vez que se modifica el archivo:
+
+- Pila de llamadas: -
+- Registro de eventos: watcher.on('change', () => {}
+- Cola: -
+- Consola: -
+
+- Pila de llamadas: -
+- Registro de eventos: watcher.on('change', () => {}
+- Cola: console.log(`File ${filename} has been modified somehow`)
+- Consola: -
+
+- Pila de llamadas: -
+- Registro de eventos: watcher.on('change', () => {}
+- Cola: -
+- Consola: File ${filename} has been modified somehow
+
 ## Ejercicio 2
 
 Este ejercicio implementa un programa que devuelve el número de ocurrencias de una palabra en un fichero de texto. Para resolverlo se ha implementado el patrón Template. La clase abstracta MehtodTemplate especifica un método `catGrepCommand()`que será implementado de distinta forma según nos pide el ejercicio.
